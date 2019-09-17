@@ -1,12 +1,12 @@
 package tsga.dsl
 
-class BehaviourPeriod {
-    private Behaviour behaviour
+class ExpectedBehaviourPeriod {
+    private ExpectedBehaviour expectedBehaviour
     private Long startTimeMillis
     private Long endTimeMillis
 
-    Behaviour getBehaviour() {
-        return behaviour
+    ExpectedBehaviour getExpectedBehaviour() {
+        return expectedBehaviour
     }
 
     Long getStartTimeMillis() {

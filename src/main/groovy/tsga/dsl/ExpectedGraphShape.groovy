@@ -5,12 +5,12 @@ class ExpectedGraphShape {
     private List behaviourPeriods = new ArrayList<>()
 
     def between(TimeUnit timeUnit, double startTime, double endTime, Closure behaviourClosure) {
-        Behaviour behaviour = new Behaviour()
+        ExpectedBehaviour behaviour = new ExpectedBehaviour()
         behaviourClosure.delegate = behaviour
         behaviourClosure()
 
-        behaviourPeriods.add(new BehaviourPeriod(
-                behaviour: behaviour,
+        behaviourPeriods.add(new ExpectedBehaviourPeriod(
+                expectedBehaviour: behaviour,
                 startTimeMillis: timeUnit.getChronoUnit().getDuration().multipliedBy(startTime.toLong()).toMillis(),
                 endTimeMillis: timeUnit.getChronoUnit().getDuration().multipliedBy(endTime.toLong()).toMillis()
         ))
@@ -20,7 +20,7 @@ class ExpectedGraphShape {
         return endMinute
     }
 
-    public List<BehaviourPeriod> getBehaviourPeriods() {
+    public List<ExpectedBehaviourPeriod> getBehaviourPeriods() {
         return behaviourPeriods
     }
 }

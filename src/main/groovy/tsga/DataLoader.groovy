@@ -36,13 +36,13 @@ class DataLoader {
 
         println("scenario name, section start time millis,section end time millis,expected response time millis,expected standard deviation,assert on,p98,p75,p50,mean response time,response time standard deviation")
         scenarios.each { scenario ->
-            scenario.getChunks().each { chunk ->
+            scenario.getSections().each { chunk ->
                 println("${scenario.name}," +
-                        "${chunk.behaviourPeriod.startTimeMillis}," +
-                        "${chunk.behaviourPeriod.endTimeMillis}," +
-                        "${chunk.behaviourPeriod.behaviour.expectedResponseTimeMillis}," +
-                        "${chunk.behaviourPeriod.behaviour.expectedMaxStandardDeviation}," +
-                        "${chunk.behaviourPeriod.behaviour.behaviourType}," +
+                        "${chunk.expectedBehaviourPeriod.startTimeMillis}," +
+                        "${chunk.expectedBehaviourPeriod.endTimeMillis}," +
+                        "${chunk.expectedBehaviourPeriod.expectedBehaviour.expectedResponseTimeMillis}," +
+                        "${chunk.expectedBehaviourPeriod.expectedBehaviour.expectedMaxStandardDeviation}," +
+                        "${chunk.expectedBehaviourPeriod.expectedBehaviour.behaviourType}," +
                         "${chunk.descriptiveStatistics.getPercentile(98).round(2)}," +
                         "${chunk.descriptiveStatistics.getPercentile(75).round(2)}," +
                         "${chunk.descriptiveStatistics.getPercentile(50).round(2)}," +

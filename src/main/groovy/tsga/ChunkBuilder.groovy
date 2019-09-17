@@ -4,15 +4,15 @@ import tsga.dsl.ExpectedGraphShape
 
 class ChunkBuilder {
 
-    List<Chunk> buildChunks(Closure expectedGraphShape, TimeSeriesData allTimeSeriesDataForScenario) {
+    List<Section> buildChunks(Closure expectedGraphShape, TimeSeriesData allTimeSeriesDataForScenario) {
         ExpectedGraphShape shape = new ExpectedGraphShape()
         expectedGraphShape.delegate = shape
         expectedGraphShape()
 
-        List<Chunk> chunks = []
+        List<Section> chunks = []
 
         shape.behaviourPeriods.each { behaviourPeriod ->
-            chunks << new Chunk(behaviourPeriod, new TimeSeriesData(timeSeriesDataPoints: allTimeSeriesDataForScenario.getTimeSubSeriesData(behaviourPeriod.getStartTimeMillis(), behaviourPeriod.getEndTimeMillis())))
+            chunks << new Section(behaviourPeriod, new TimeSeriesData(timeSeriesDataPoints: allTimeSeriesDataForScenario.getTimeSubSeriesData(behaviourPeriod.getStartTimeMillis(), behaviourPeriod.getEndTimeMillis())))
         }
 
         return chunks
