@@ -4,7 +4,11 @@ class TimeSeriesDataPoint {
     private long timeSinceStartOfScenarioMillis
     private long responseTimeMillis
 
-    public long getResponseTimeMillis() {
+    long getResponseTimeMillis() {
         return responseTimeMillis
+    }
+
+    long getTimeSinceStartOfScenarioMillis() {
+        return timeSinceStartOfScenarioMillis
     }
 }

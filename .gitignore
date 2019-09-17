@@ -1,5 +1,6 @@
 .attach_pid*
 .idea/
 target/
+test_data/
 time-series-graph-analyser.iml
 

@@ -1,57 +1,55 @@
 package tsga
 
-import org.apache.commons.csv.CSVFormat
-import org.apache.commons.csv.CSVRecord
 
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoField
-
-import static tsga.dsl.TimeSeriesProperty.standardDeviation
 import static tsga.dsl.TimeUnit.seconds
 
 class DataLoader {
 
-    static def EXPECTED_SHAPE = {
-        between seconds, 0, 170, {
-            constant 100 with standardDeviation, 100
-        }
+    static def DATA_DIRECTORY = "/home/richard/workspace/time-series-graph-analyser/test_data"
 
-        between seconds, 180, 300, {
-            constant 1500 with standardDeviation, 0.1
-        }
+    static def EXPECTED_SHAPES = [
+            "aws_HeartbeatV1_EXPIRED": {
+                between seconds, 0, 170, {
+                    mean 80 standardDeviation 100
+                }
 
-        between seconds, 310, 410, {
-            constant 100 with standardDeviation, 0.1
-        }
+                between seconds, 180, 300, {
+                    mean 300 standardDeviation 100
+                }
 
-        between seconds, 430, 530, {
-            constant 1500 with standardDeviation, 0.1
-        }
+                between seconds, 310, 410, {
+                    mean 80 standardDeviation 100
+                }
 
-        between seconds, 550, 600, {
-            constant 100 with standardDeviation, 0.1
-        }
-    }
+                between seconds, 430, 530, {
+                    p50 1500 standardDeviation 100
+                }
+
+                between seconds, 550, 600, {
+                    mean 80 standardDeviation 100
+                }
+            }
+    ]
 
     static void main(String[] args) throws IOException {
-        Reader inputStreamReader = new InputStreamReader(DataLoader.class.getResourceAsStream("/umv_response_times.csv"))
-        Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(inputStreamReader)
+        List<Scenario> scenarios = new GatlingLogParser().buildScenarios(new File(DATA_DIRECTORY).listFiles(), EXPECTED_SHAPES)
 
-        TimeSeriesData timeSeriesData = new TimeSeriesData()
-
-        int index = 0
-        for (CSVRecord record : records) {
-            if (index > 0) {
-                timeSeriesData.add(new TimeSeriesDataPoint(
-                        timeSinceStartOfScenarioMillis: DateTimeFormatter.ISO_TIME.parse(record.get(0)).getLong(ChronoField.NANO_OF_DAY) / 1000000L,
-                        responseTimeMillis: record.get(1) as Long))
+        println("scenario name, section start time millis,section end time millis,expected response time millis,expected standard deviation,assert on,p98,p75,p50,mean response time,response time standard deviation")
+        scenarios.each { scenario ->
+            scenario.getChunks().each { chunk ->
+                println("${scenario.name}," +
+                        "${chunk.behaviourPeriod.startTimeMillis}," +
+                        "${chunk.behaviourPeriod.endTimeMillis}," +
+                        "${chunk.behaviourPeriod.behaviour.expectedResponseTimeMillis}," +
+                        "${chunk.behaviourPeriod.behaviour.expectedMaxStandardDeviation}," +
+                        "${chunk.behaviourPeriod.behaviour.behaviourType}," +
+                        "${chunk.descriptiveStatistics.getPercentile(98).round(2)}," +
+                        "${chunk.descriptiveStatistics.getPercentile(75).round(2)}," +
+                        "${chunk.descriptiveStatistics.getPercentile(50).round(2)}," +
+                        "${chunk.descriptiveStatistics.mean.round(2)}," +
+                        "${chunk.descriptiveStatistics.standardDeviation.round(2)}")
             }
-            index++
         }
-
-        List<Chunk> chunks = new ChunkBuilder().buildChunks(EXPECTED_SHAPE, timeSeriesData)
-
-        chunks.each { println it }
     }
 
 }

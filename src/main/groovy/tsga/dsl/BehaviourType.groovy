@@ -1,5 +1,5 @@
 package tsga.dsl
 
 enum BehaviourType {
-    RAMP_UP, RAMP_DOWN, CONSTANT
+    MEAN, P98, P75, P50
 }
