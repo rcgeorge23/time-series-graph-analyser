@@ -1,7 +1,7 @@
 package tsga
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics
-import tsga.dsl.BehaviourType
+import tsga.dsl.StatisticalProperty
 import tsga.dsl.ExpectedBehaviourOperator
 import tsga.dsl.ExpectedBehaviourPeriod
 
@@ -18,17 +18,17 @@ class Section {
 
         double statToCompare = -1
 
-        switch(expectedBehaviourPeriod.expectedBehaviour.behaviourType) {
-            case BehaviourType.MEAN:
+        switch(expectedBehaviourPeriod.expectedBehaviour.statisticalProperty) {
+            case StatisticalProperty.MEAN:
                 statToCompare = descriptiveStatistics.mean
                 break
-            case BehaviourType.P50:
+            case StatisticalProperty.P50:
                 statToCompare = descriptiveStatistics.getPercentile(50)
                 break
-            case BehaviourType.P75:
+            case StatisticalProperty.P75:
                 statToCompare = descriptiveStatistics.getPercentile(75)
                 break
-            case BehaviourType.P98:
+            case StatisticalProperty.P98:
                 statToCompare = descriptiveStatistics.getPercentile(98)
                 break
         }

@@ -1,5 +1,5 @@
 package tsga.dsl
 
-enum BehaviourType {
+enum StatisticalProperty {
     MEAN, P98, P75, P50
 }

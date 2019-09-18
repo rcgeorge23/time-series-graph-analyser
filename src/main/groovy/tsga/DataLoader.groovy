@@ -1,8 +1,8 @@
 package tsga
 
 
-import static tsga.dsl.BehaviourType.MEAN
-import static tsga.dsl.BehaviourType.P50
+import static tsga.dsl.StatisticalProperty.MEAN
+import static tsga.dsl.StatisticalProperty.P50
 import static tsga.dsl.TimeUnit.seconds
 
 class DataLoader {
@@ -45,7 +45,7 @@ class DataLoader {
                         "${chunk.expectedBehaviourPeriod.expectedBehaviour.expectedBehaviourValue.responseTimeMillis}," +
                         "${chunk.expectedBehaviourPeriod.expectedBehaviour.expectedBehaviourValue.maximumResponseTimeMillis}," +
                         "${chunk.expectedBehaviourPeriod.expectedBehaviour.expectedBehaviourValue.minimumResponseTimeMillis}," +
-                        "${chunk.expectedBehaviourPeriod.expectedBehaviour.behaviourType}," +
+                        "${chunk.expectedBehaviourPeriod.expectedBehaviour.statisticalProperty}," +
                         "${chunk.expectedBehaviourPeriod.expectedBehaviour.expectedBehaviourValue.expectedBehaviourVariance.standardDeviation}," +
                         "${chunk.descriptiveStatistics.getPercentile(98).round(2)}," +
                         "${chunk.descriptiveStatistics.getPercentile(75).round(2)}," +

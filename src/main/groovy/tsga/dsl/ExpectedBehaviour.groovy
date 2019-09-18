@@ -3,10 +3,10 @@ package tsga.dsl
 class ExpectedBehaviour {
 
     private ExpectedBehaviourValue expectedBehaviourValue
-    private BehaviourType behaviourType
+    private StatisticalProperty statisticalProperty
 
-    ExpectedBehaviourValue assertThat(BehaviourType behaviourType) {
-        this.behaviourType = behaviourType
+    ExpectedBehaviourValue assertThat(StatisticalProperty statisticalProperty) {
+        this.statisticalProperty = statisticalProperty
         this.expectedBehaviourValue = new ExpectedBehaviourValue()
     }
 }
