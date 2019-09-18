@@ -5,7 +5,7 @@ import java.nio.file.Paths
 import java.util.stream.Stream
 
 class GatlingLogParser {
-    List<Scenario> buildScenarios(File[] gatlingLogFiles, Map<String, Closure> expectedScenarioGraphShapes) {
+    static List<Scenario> buildScenarios(File[] gatlingLogFiles, Map<String, Closure> expectedScenarioGraphShapes) {
         List<Scenario> scenarios = []
 
         Long scenarioStartTimeMillis = gatlingLogFiles.collect { logFileStartTime(it) }.sort().first()
@@ -48,7 +48,7 @@ class GatlingLogParser {
         return scenarios
     }
 
-    private Long logFileStartTime(File file) {
+    private static Long logFileStartTime(File file) {
         Stream<String> lines = Files.lines(Paths.get(file.absolutePath))
         return Long.parseLong(lines.filter { line -> line.startsWith("RUN") }.findFirst().get().split("\t")[3])
     }
