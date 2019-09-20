@@ -2,9 +2,13 @@ package tsga.dsl
 
 class ExpectedGraphShape {
 
+    String sectionName
+
     private List behaviourPeriods = new ArrayList<>()
 
-    def between(TimeUnit timeUnit, double startTime, double endTime, Closure behaviourClosure) {
+    def between(TimeUnit timeUnit, double startTime, double endTime, String sectionName, Closure behaviourClosure) {
+        this.sectionName = sectionName
+
         ExpectedBehaviour behaviour = new ExpectedBehaviour()
         behaviourClosure.delegate = behaviour
         behaviourClosure()
@@ -20,7 +24,7 @@ class ExpectedGraphShape {
         return endMinute
     }
 
-    public List<ExpectedBehaviourPeriod> getBehaviourPeriods() {
+    List<ExpectedBehaviourPeriod> getBehaviourPeriods() {
         return behaviourPeriods
     }
 }

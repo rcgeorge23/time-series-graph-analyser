@@ -1,4 +1,4 @@
-package tsga
+package tsga.model
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics
 import tsga.dsl.StatisticalProperty
@@ -10,8 +10,10 @@ class Section {
     TimeSeriesData timeSeriesData
     DescriptiveStatistics descriptiveStatistics
     Boolean passed = false
+    String name
 
-    Section(ExpectedBehaviourPeriod expectedBehaviourPeriod, TimeSeriesData timeSeriesData) {
+    Section(String name, ExpectedBehaviourPeriod expectedBehaviourPeriod, TimeSeriesData timeSeriesData) {
+        this.name = name
         this.expectedBehaviourPeriod = expectedBehaviourPeriod
         this.timeSeriesData = timeSeriesData
         this.descriptiveStatistics = new DescriptiveStatistics(timeSeriesData.timeSeriesDataPoints*.responseTimeMillis*.toDouble() as double[])

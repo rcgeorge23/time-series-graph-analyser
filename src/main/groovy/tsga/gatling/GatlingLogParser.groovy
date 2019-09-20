@@ -1,4 +1,9 @@
-package tsga
+package tsga.gatling
+
+import tsga.model.SectionBuilder
+import tsga.model.Scenario
+import tsga.model.TimeSeriesData
+import tsga.model.TimeSeriesDataPoint
 
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -42,7 +47,7 @@ class GatlingLogParser {
                 )
             }
 
-            scenarios << new Scenario(scenarioName, new ChunkBuilder().buildChunks(expectedScenarioGraphShapes.get(scenarioName), timeSeriesDataForScenario))
+            scenarios << new Scenario(scenarioName, new SectionBuilder().buildSections(expectedScenarioGraphShapes.get(scenarioName), timeSeriesDataForScenario))
         }
 
         return scenarios

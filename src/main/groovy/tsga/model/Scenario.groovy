@@ -1,4 +1,4 @@
-package tsga
+package tsga.model
 
 class Scenario {
     String name
@@ -14,7 +14,7 @@ class Scenario {
     }
 
     List<Section> getSections() {
-        return sections.sort { it.timeSeriesData.timeSeriesDataPoints.first().timeSinceStartOfScenarioMillis }
+        return sections.sort { it.timeSeriesData.timeSeriesDataPoints.sort { it.timeSinceStartOfScenarioMillis }.first().timeSinceStartOfScenarioMillis }
     }
 
     @Override

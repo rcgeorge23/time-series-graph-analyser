@@ -1,4 +1,4 @@
-package tsga
+package tsga.model
 
 class TimeSeriesDataPoint {
     private long timeSinceStartOfScenarioMillis

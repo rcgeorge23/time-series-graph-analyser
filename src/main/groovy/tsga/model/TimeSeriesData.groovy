@@ -1,4 +1,4 @@
-package tsga
+package tsga.model
 
 class TimeSeriesData {
     private List<TimeSeriesDataPoint> timeSeriesDataPoints = new ArrayList<>()
@@ -8,10 +8,17 @@ class TimeSeriesData {
     }
 
     List<TimeSeriesDataPoint> getTimeSubSeriesData(Long startTimeMillis, Long endTimeMillis) {
+        timeSeriesDataPoints.sort(new Comparator<TimeSeriesDataPoint>() {
+            @Override
+            int compare(TimeSeriesDataPoint timeSeriesDataPoint1, TimeSeriesDataPoint timeSeriesDataPoint2) {
+                return timeSeriesDataPoint1.timeSinceStartOfScenarioMillis <=> timeSeriesDataPoint2.timeSinceStartOfScenarioMillis
+            }
+        })
+
         return timeSeriesDataPoints.findAll({ it.timeSinceStartOfScenarioMillis >= startTimeMillis && it.timeSinceStartOfScenarioMillis <= endTimeMillis })
     }
 
-    public List<TimeSeriesDataPoint> getTimeSeriesDataPoints() {
+    List<TimeSeriesDataPoint> getTimeSeriesDataPoints() {
         return timeSeriesDataPoints
     }
 }
