@@ -8,12 +8,9 @@ class TimeSeriesData {
     }
 
     List<TimeSeriesDataPoint> getTimeSubSeriesData(Long startTimeMillis, Long endTimeMillis) {
-        timeSeriesDataPoints.sort(new Comparator<TimeSeriesDataPoint>() {
-            @Override
-            int compare(TimeSeriesDataPoint timeSeriesDataPoint1, TimeSeriesDataPoint timeSeriesDataPoint2) {
-                return timeSeriesDataPoint1.timeSinceStartOfScenarioMillis <=> timeSeriesDataPoint2.timeSinceStartOfScenarioMillis
-            }
-        })
+        timeSeriesDataPoints.sort { p1, p2 ->
+            p1.timeSinceStartOfScenarioMillis <=> p2.timeSinceStartOfScenarioMillis
+        }
 
         return timeSeriesDataPoints.findAll({ it.timeSinceStartOfScenarioMillis >= startTimeMillis && it.timeSinceStartOfScenarioMillis <= endTimeMillis })
     }

@@ -1,7 +1,6 @@
 package tsga
 
 import tsga.gatling.GatlingLogParser
-import tsga.model.Scenario
 import tsga.output.CsvPrinter
 
 import static tsga.dsl.StatisticalProperty.MEAN
