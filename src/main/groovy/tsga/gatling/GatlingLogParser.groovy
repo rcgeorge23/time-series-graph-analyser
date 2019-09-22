@@ -18,8 +18,8 @@ class GatlingLogParser {
         Map<String, List<String>> aggregatedLinesForScenarios = [:]
 
         gatlingLogFiles.each { file ->
-            Stream<String> lines = Files.lines(Paths.get(file.absolutePath))
             expectedScenarioGraphShapes.keySet().each { scenarioName ->
+                Stream<String> lines = Files.lines(Paths.get(file.absolutePath))
                 List<String> linesForScenario = lines.findAll {
                     def lineParts = it.split("\t")
                     if (lineParts.length >= 4) {

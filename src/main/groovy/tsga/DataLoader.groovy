@@ -32,6 +32,27 @@ class DataLoader {
                 between seconds, 550, 600, "umv response time back to 100ms", {
                     assertThat MEAN is 80 withStandardDeviation 100
                 }
+            },
+            "aws_ConsolidatedStartStream_GB_EXPIRED": {
+                between seconds, 0, 170, "initial load", {
+                    assertThat MEAN is 80 withStandardDeviation 100
+                }
+
+                between seconds, 180, 300, "umv response time 300ms", {
+                    assertThat MEAN is 300 withStandardDeviation 100
+                }
+
+                between seconds, 310, 410, "umv response time back to 100ms", {
+                    assertThat MEAN is 80 withStandardDeviation 100
+                }
+
+                between seconds, 430, 530, "umv timeout", {
+                    assertThat P50 between 1400, 1600
+                }
+
+                between seconds, 550, 600, "umv response time back to 100ms", {
+                    assertThat MEAN is 80 withStandardDeviation 100
+                }
             }
     ]
 
