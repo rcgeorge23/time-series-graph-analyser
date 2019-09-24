@@ -11,14 +11,13 @@ class Section {
     DescriptiveStatistics descriptiveStatistics
     Boolean passed = false
     String name
+    Double statToCompare
 
     Section(String name, ExpectedBehaviourPeriod expectedBehaviourPeriod, TimeSeriesData timeSeriesData) {
         this.name = name
         this.expectedBehaviourPeriod = expectedBehaviourPeriod
         this.timeSeriesData = timeSeriesData
         this.descriptiveStatistics = new DescriptiveStatistics(timeSeriesData.timeSeriesDataPoints*.responseTimeMillis*.toDouble() as double[])
-
-        double statToCompare = -1
 
         switch(expectedBehaviourPeriod.expectedBehaviour.statisticalProperty) {
             case StatisticalProperty.MEAN:

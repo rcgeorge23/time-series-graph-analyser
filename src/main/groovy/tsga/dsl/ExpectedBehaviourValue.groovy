@@ -2,11 +2,11 @@ package tsga.dsl
 
 class ExpectedBehaviourValue {
 
-    private Long responseTimeMillis
-    private Long minimumResponseTimeMillis
-    private Long maximumResponseTimeMillis
-    private ExpectedBehaviourVariance expectedBehaviourVariance
-    private ExpectedBehaviourOperator expectedBehaviourOperator
+    Long responseTimeMillis
+    Long minimumResponseTimeMillis
+    Long maximumResponseTimeMillis
+    ExpectedBehaviourVariance expectedBehaviourVariance
+    ExpectedBehaviourOperator expectedBehaviourOperator
 
     ExpectedBehaviourVariance is(long responseTimeMillis) {
         this.expectedBehaviourOperator = ExpectedBehaviourOperator.IS

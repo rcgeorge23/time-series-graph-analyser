@@ -1,9 +1,11 @@
 package tsga.dsl
 
 class ExpectedBehaviourPeriod {
-    private ExpectedBehaviour expectedBehaviour
-    private Long startTimeMillis
-    private Long endTimeMillis
+    String name
+    ExpectedBehaviour expectedBehaviour
+    Long startTimeMillis
+    Long endTimeMillis
+
 
     ExpectedBehaviour getExpectedBehaviour() {
         return expectedBehaviour

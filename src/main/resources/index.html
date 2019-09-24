@@ -1,0 +1,83 @@
+<html>
+<head>
+    <script src="js/moment.js"></script>
+    <script src="js/chartjs.min.js"></script>
+    <link rel="js/chartjs.min.css" />
+</head>
+<body>
+    <canvas id="myChart" width="400" height="400"></canvas>
+
+    <script>
+		var cfg = {
+			type: 'bar',
+			data: {
+				datasets: [{
+					label: 'Actual Response Time / ms',
+					backgroundColor: '#e5e5e5',
+					borderColor: '#eee',
+					data: {{DATA_SERIES_ACTUAL}},
+					type: 'line',
+					pointRadius: 0,
+					fill: false,
+					lineTension: 0,
+					borderWidth: 2
+				},{
+					label: 'Relevant Statistical Property Response Time / ms',
+					backgroundColor: '#25aa25',
+					borderColor: '#2a2',
+					data: {{DATA_SERIES_RSP}},
+					type: 'line',
+					pointRadius: 0,
+					fill: false,
+					lineTension: 0,
+					borderWidth: 2
+				},{
+					label: 'Min Expected Response Time / ms',
+					backgroundColor: '#a5a5ff',
+					borderColor: '#aaf',
+					data: {{DATA_SERIES_MIN}},
+					type: 'line',
+					pointRadius: 0,
+					fill: false,
+					lineTension: 0,
+					borderWidth: 2
+				},{
+					label: 'Max Expected Response Time / ms',
+					backgroundColor: '#ffa5a5',
+					borderColor: '#faa',
+					data: {{DATA_SERIES_MAX}},
+					type: 'line',
+					pointRadius: 0,
+					fill: false,
+					lineTension: 0,
+					borderWidth: 2
+				}]
+			},
+			options: {
+				scales: {
+					xAxes: [{
+						type: 'time',
+						distribution: 'series',
+						ticks: {
+							source: 'data',
+							autoSkip: true
+						}
+					}],
+					yAxes: [{
+						scaleLabel: {
+							display: true,
+							labelString: 'Response Time / ms'
+						}
+					}]
+				}
+			}
+		};
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+		ctx.canvas.width = 1000;
+		ctx.canvas.height = 300;
+
+		var chart = new Chart(ctx, cfg);
+	</script>
+    </body>
+</html>

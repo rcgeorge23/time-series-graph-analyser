@@ -13,7 +13,7 @@ class GatlingLogParser {
     static List<Scenario> buildScenarios(File[] gatlingLogFiles, Map<String, Closure> expectedScenarioGraphShapes) {
         List<Scenario> scenarios = []
 
-        Long scenarioStartTimeMillis = gatlingLogFiles.collect { logFileStartTime(it) }.sort().first()
+        Long scenarioStartTimeMillis = testStartTime(gatlingLogFiles)
 
         Map<String, List<String>> aggregatedLinesForScenarios = [:]
 
@@ -42,6 +42,7 @@ class GatlingLogParser {
                 Long startTimestamp = Long.parseLong(parts[4])
                 Long endTimestamp = Long.parseLong(parts[5])
                 timeSeriesDataForScenario.add(new TimeSeriesDataPoint(
+                        actualTimeMillis: startTimestamp,
                         timeSinceStartOfScenarioMillis: startTimestamp - scenarioStartTimeMillis,
                         responseTimeMillis: endTimestamp - startTimestamp)
                 )
@@ -51,6 +52,10 @@ class GatlingLogParser {
         }
 
         return scenarios
+    }
+
+    private static long testStartTime(File[] gatlingLogFiles) {
+        gatlingLogFiles.collect { logFileStartTime(it) }.sort().first()
     }
 
     private static Long logFileStartTime(File file) {

@@ -14,7 +14,7 @@ class SectionBuilder {
         List<Section> sections = []
 
         shape.behaviourPeriods.each { behaviourPeriod ->
-            sections << new Section(shape.sectionName, behaviourPeriod, new TimeSeriesData(timeSeriesDataPoints: allTimeSeriesDataForScenario.getTimeSubSeriesData(behaviourPeriod.getStartTimeMillis(), behaviourPeriod.getEndTimeMillis())))
+            sections << new Section(behaviourPeriod.name, behaviourPeriod, new TimeSeriesData(timeSeriesDataPoints: allTimeSeriesDataForScenario.getTimeSubSeriesData(behaviourPeriod.getStartTimeMillis(), behaviourPeriod.getEndTimeMillis())))
         }
 
         return sections
