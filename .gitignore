@@ -1,6 +1,7 @@
 .attach_pid*
 .idea/
+.gradle/
 target/
 test_data/
 time-series-graph-analyser.iml
-
+build/
