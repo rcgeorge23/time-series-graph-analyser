@@ -1,4 +1,43 @@
+import tsga.gradle.TsgaPlugin
+
+import static tsga.dsl.StatisticalProperty.MEAN
+import static tsga.dsl.StatisticalProperty.P50
+import static tsga.dsl.TimeUnit.seconds
+
+plugins {
+    id 'java'
+    id 'java-gradle-plugin'
+}
+
 apply plugin: 'groovy'
+apply plugin: TsgaPlugin
+
+tsga {
+    gatlingLogDirectory = "${project.rootDir}/test_data"
+    expectedShapes = [
+            "aws_HeartbeatV1_EXPIRED": {
+                between seconds, 0, 170, "initial load", {
+                    assertThat MEAN is 80 withStandardDeviation 100
+                }
+
+                between seconds, 180, 300, "umv response time 300ms", {
+                    assertThat MEAN is 300 withStandardDeviation 100
+                }
+
+                between seconds, 310, 410, "umv response time back to 100ms", {
+                    assertThat MEAN is 80 withStandardDeviation 100
+                }
+
+                between seconds, 430, 530, "umv timeout", {
+                    assertThat P50 between 1400, 1600
+                }
+
+                between seconds, 550, 600, "umv response time back to 100ms", {
+                    assertThat MEAN is 80 withStandardDeviation 100
+                }
+            }
+    ]
+}
 
 group = 'uk.co.novinet'
 version = '1.0-SNAPSHOT'
@@ -16,7 +55,9 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-math3', version:'3.6.1'
     compile group: 'commons-io', name: 'commons-io', version:'2.6'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.9.10'
-    compile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.13'
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.16'
+    compile group: 'org.gradle', name: 'api', version: '1.0'
+    compileOnly gradleApi()
     testCompile group: 'org.spockframework', name: 'spock-core', version:'1.1-groovy-2.4'
     testCompile group: 'junit', name: 'junit', version:'4.12'
 }
