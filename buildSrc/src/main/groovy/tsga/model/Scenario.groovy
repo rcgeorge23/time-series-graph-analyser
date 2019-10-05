@@ -3,10 +3,16 @@ package tsga.model
 class Scenario {
     String name
     List<Section> sections
+    TimeSeriesData allTimeSeriesData
 
-    Scenario(String name, List<Section> sections) {
+    Scenario(String name, List<Section> sections, TimeSeriesData allTimeSeriesData) {
         this.name = name
         this.sections = sections
+        this.allTimeSeriesData = allTimeSeriesData
+    }
+
+    TimeSeriesData getAllTimeSeriesData() {
+        return allTimeSeriesData
     }
 
     String getName() {

@@ -5,3 +5,4 @@ target/
 test_data/
 time-series-graph-analyser.iml
 build/
+out/

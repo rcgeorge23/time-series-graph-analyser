@@ -2,6 +2,8 @@
 <head>
     <script src="js/moment.js"></script>
     <script src="js/chartjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.4"></script>
     <link rel="js/chartjs.min.css" />
 </head>
 <body>
@@ -17,7 +19,7 @@
 					borderColor: '#eee',
 					data: {{DATA_SERIES_ACTUAL}},
 					type: 'line',
-					pointRadius: 0,
+					pointRadius: 2,
 					fill: false,
 					lineTension: 0,
 					borderWidth: 2
@@ -27,33 +29,50 @@
 					borderColor: '#2a2',
 					data: {{DATA_SERIES_RSP}},
 					type: 'line',
-					pointRadius: 0,
+					pointRadius: 2,
 					fill: false,
 					lineTension: 0,
-					borderWidth: 2
+					borderWidth: 2,
+					spanGaps: false,
+					showLine: false
 				},{
 					label: 'Min Expected Response Time / ms',
 					backgroundColor: '#a5a5ff',
 					borderColor: '#aaf',
 					data: {{DATA_SERIES_MIN}},
 					type: 'line',
-					pointRadius: 0,
+					pointRadius: 2,
 					fill: false,
 					lineTension: 0,
-					borderWidth: 2
+					borderWidth: 2,
+					spanGaps: false,
+					showLine: false
 				},{
 					label: 'Max Expected Response Time / ms',
 					backgroundColor: '#ffa5a5',
 					borderColor: '#faa',
 					data: {{DATA_SERIES_MAX}},
 					type: 'line',
-					pointRadius: 0,
+					pointRadius: 2,
 					fill: false,
 					lineTension: 0,
-					borderWidth: 2
+					borderWidth: 2,
+					spanGaps: false,
+					showLine: false
 				}]
 			},
+			showTooltips: true,
 			options: {
+			    pan: {
+                    enabled: false,
+                    mode: 'x',
+                },
+                zoom: {
+                    drag: true,
+                    enabled: true,
+                    mode: 'x',
+                },
+                responsive: true,
 				scales: {
 					xAxes: [{
 						type: 'time',
@@ -79,5 +98,6 @@
 
 		var chart = new Chart(ctx, cfg);
 	</script>
+    <a href="#" style="float: right;" onclick="chart.resetZoom(); return false;">Reset zoom</a>
     </body>
 </html>

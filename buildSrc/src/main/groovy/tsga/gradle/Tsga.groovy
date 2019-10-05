@@ -2,7 +2,7 @@ package tsga.gradle
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
-import tsga.DataLoader
+import tsga.ReportGenerator
 
 class Tsga extends DefaultTask {
     String gatlingLogDirectory
@@ -30,6 +30,6 @@ class Tsga extends DefaultTask {
 
     @TaskAction
     void generateReport() {
-        DataLoader.generateReport(new File(gatlingLogDirectory), new File(outputDirectory), expectedShapes)
+        ReportGenerator.generateReport(new File(gatlingLogDirectory), new File(outputDirectory), expectedShapes)
     }
 }

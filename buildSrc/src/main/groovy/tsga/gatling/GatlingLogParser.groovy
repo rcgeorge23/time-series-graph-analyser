@@ -36,6 +36,7 @@ class GatlingLogParser {
         }
 
         TimeSeriesData timeSeriesDataForScenario = new TimeSeriesData()
+
         aggregatedLinesForScenarios.each { scenarioName, aggregatedLogLines ->
             aggregatedLogLines.each { line ->
                 String[] parts = line.split("\t")
@@ -48,7 +49,7 @@ class GatlingLogParser {
                 )
             }
 
-            scenarios << new Scenario(scenarioName, new SectionBuilder().buildSections(expectedScenarioGraphShapes.get(scenarioName), timeSeriesDataForScenario))
+            scenarios << new Scenario(scenarioName, new SectionBuilder().buildSections(expectedScenarioGraphShapes.get(scenarioName), timeSeriesDataForScenario), timeSeriesDataForScenario)
         }
 
         return scenarios

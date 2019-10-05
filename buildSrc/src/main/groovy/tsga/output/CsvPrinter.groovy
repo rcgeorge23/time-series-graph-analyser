@@ -6,7 +6,7 @@ import tsga.model.Scenario
 import tsga.output.chartjs.DataPoint
 
 class CsvPrinter {
-    static int DOWNSAMPLE_FACTOR = 10
+    static int DOWNSAMPLE_FACTOR = 20
 
     static void printSummary(List<Scenario> scenarios) {
         println("scenario name,section start time millis,section end time millis,expected response time millis,expected maximum response time millis,expected minimum response time millis,assert on,with allowable standard deviation,p98,p75,p50,mean response time,response time standard deviation,assertion passed")
@@ -64,10 +64,8 @@ class CsvPrinter {
     static String renderChartJsActualResponseTimeTimeSeries(List<Scenario> scenarios) {
         List<DataPoint> dataPoints = []
         scenarios.each { scenario ->
-            scenario.getSections().each { section ->
-                section.timeSeriesData.timeSeriesDataPoints.eachWithIndex { timeSeriesDataPoint, index ->
-                    if (index % DOWNSAMPLE_FACTOR == 0) dataPoints.add(new DataPoint(t: timeSeriesDataPoint.actualTimeMillis, y: timeSeriesDataPoint.responseTimeMillis))
-                }
+            scenario.allTimeSeriesData.timeSeriesDataPoints.eachWithIndex { timeSeriesDataPoint, index ->
+                if (index % DOWNSAMPLE_FACTOR == 0) dataPoints.add(new DataPoint(t: timeSeriesDataPoint.actualTimeMillis, y: timeSeriesDataPoint.responseTimeMillis))
             }
         }
         return new ObjectMapper().writeValueAsString(dataPoints)

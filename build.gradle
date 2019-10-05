@@ -20,8 +20,8 @@ tsga {
                     assertThat MEAN is 80 withStandardDeviation 100
                 }
 
-                between seconds, 180, 300, "umv response time 300ms", {
-                    assertThat MEAN is 300 withStandardDeviation 100
+                between seconds, 190, 290, "umv response time 300ms", {
+                    assertThat MEAN is 270 withStandardDeviation 100
                 }
 
                 between seconds, 310, 410, "umv response time back to 100ms", {
